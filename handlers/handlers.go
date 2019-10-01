@@ -35,12 +35,13 @@ func AddNewWinner(res http.ResponseWriter, req *http.Request) {
 	isTokenValid := data.IsAccessTokenValid(accessToken)
 	if !isTokenValid {
 		res.WriteHeader(http.StatusUnauthorized)
+	} else {
+		err := data.AddNewWinner(req.Body)
+		if err != nil {
+			res.WriteHeader(http.StatusUnprocessableEntity)
+		}
+		res.WriteHeader(http.StatusCreated)
 	}
-	err := data.AddNewWinner(req.Body)
-	if err != nil {
-		res.WriteHeader(http.StatusUnprocessableEntity)
-	}
-	res.WriteHeader(http.StatusCreated)
 }
 
 // WinnersHandler is the dispatcher for all /winners URL
