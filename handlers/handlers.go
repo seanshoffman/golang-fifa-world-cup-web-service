@@ -39,8 +39,9 @@ func AddNewWinner(res http.ResponseWriter, req *http.Request) {
 		err := data.AddNewWinner(req.Body)
 		if err != nil {
 			res.WriteHeader(http.StatusUnprocessableEntity)
+		} else {
+			res.WriteHeader(http.StatusCreated)
 		}
-		res.WriteHeader(http.StatusCreated)
 	}
 }
 
